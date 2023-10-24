@@ -75,6 +75,8 @@ ifapi_set_key_flags(const char *type, bool policy, IFAPI_KEY_TEMPLATE *template)
 	    attributes |= TPMA_OBJECT_USERWITHAUTH;
         } else if (strcasecmp(flag, "decrypt") == 0) {
             attributes |= TPMA_OBJECT_DECRYPT;
+        } else if (strcasecmp(flag, "ibe") == 0) {
+            attributes |= TPMA_OBJECT_DECRYPT;
         } else if (strcasecmp(flag, "restricted") == 0) {
             attributes |= TPMA_OBJECT_RESTRICTED;
         } else if (strcasecmp(flag, "exportable") == 0) {
@@ -91,8 +93,6 @@ ifapi_set_key_flags(const char *type, bool policy, IFAPI_KEY_TEMPLATE *template)
             }
             template->persistent_handle = handle;
             template->persistent = TPM2_YES;
-        } else if(strcasecmp(flag, "ibe") == 0) {
-            attributes |= TPMA_OBJECT_DECRYPT;
         } else {
             goto_error(r, TSS2_FAPI_RC_BAD_VALUE, "Invalid flag: %s",
                        error, flag);
